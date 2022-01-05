@@ -84,7 +84,7 @@ int main(int argc, const char **argv) {
     std::cout << "compute ... " << std::endl;
     move_functor motion{step_time};
     auto         start = std::chrono::high_resolution_clock::now();
-    for (std::size_t i = 0; i < 1000; i++) {
+    for (std::size_t i = 0; i < 100000; i++) {
         thrust::transform(d_vec.begin(), d_vec.end(), res_vec.begin(), motion);
         // h_vec = d_vec;
         // export_coords("traj/point_coords." + std::to_string(i) + ".csv", h_vec);
@@ -95,7 +95,7 @@ int main(int argc, const char **argv) {
     std::cout << std::scientific << "Time of simulation GPU : " << duration.count() << " ns" << std::endl;
 
     auto start_serial = std::chrono::high_resolution_clock::now();
-    for (std::size_t i = 0; i < 1000; i++) {
+    for (std::size_t i = 0; i < 100000; i++) {
         std::transform(h_vec.begin(), h_vec.end(), h_res_vec.begin(), motion);
     }
     auto stop_serial     = std::chrono::high_resolution_clock::now();
